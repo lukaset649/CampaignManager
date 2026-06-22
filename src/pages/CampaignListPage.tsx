@@ -1,3 +1,8 @@
+import { CampaignList } from '../components/CampaignList/CampaignList';
+
 export const CampaignListPage = () => (
-  <p>Lista kampanii</p>
+  <section>
+    <h1>Kampanie</h1>
+    <CampaignList />
+  </section>
 );
