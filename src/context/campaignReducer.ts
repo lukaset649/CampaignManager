@@ -12,6 +12,21 @@ export const campaignReducer = (state: AppState, action: CampaignAction): AppSta
         },
       };
 
+    case 'UPDATE_CAMPAIGN': {
+      const previousCampaign = state.campaigns.find((c) => c.id === action.payload.id);
+      const fundAmountDiff = (previousCampaign?.fundAmount ?? 0) - action.payload.fundAmount;
+      return {
+        ...state,
+        campaigns: state.campaigns.map((c) =>
+          c.id === action.payload.id ? action.payload : c,
+        ),
+        billingAccount: {
+          ...state.billingAccount,
+          balance: state.billingAccount.balance + fundAmountDiff,
+        },
+      };
+    }
+
     case 'HYDRATE_STATE':
       return action.payload;
   }
