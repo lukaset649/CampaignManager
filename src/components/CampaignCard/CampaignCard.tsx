@@ -1,4 +1,5 @@
 import type { Campaign } from '../../types/campaign';
+import { CampaignDetail } from './CampaignDetail';
 import './CampaignCard.less';
 
 interface CampaignCardProps {
@@ -16,22 +17,10 @@ export const CampaignCard = ({ campaign }: CampaignCardProps) => {
       </div>
 
       <dl className="campaign-card__details">
-        <div className="campaign-card__detail">
-          <dt>Miasto</dt>
-          <dd>{campaign.town}</dd>
-        </div>
-        <div className="campaign-card__detail">
-          <dt>Zasięg</dt>
-          <dd>{campaign.radius} km</dd>
-        </div>
-        <div className="campaign-card__detail">
-          <dt>Stawka</dt>
-          <dd>{campaign.bidAmount.toFixed(2)} PLN</dd>
-        </div>
-        <div className="campaign-card__detail">
-          <dt>Budżet</dt>
-          <dd>{campaign.fundAmount.toFixed(2)} PLN</dd>
-        </div>
+        <CampaignDetail label="Miasto" value={campaign.town} />
+        <CampaignDetail label="Zasięg" value={`${campaign.radius} km`} />
+        <CampaignDetail label="Stawka" value={`${campaign.bidAmount.toFixed(2)} PLN`} />
+        <CampaignDetail label="Budżet" value={`${campaign.fundAmount.toFixed(2)} PLN`} />
       </dl>
 
       <div className="campaign-card__keywords">
