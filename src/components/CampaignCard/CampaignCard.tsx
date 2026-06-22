@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import type { Campaign } from '../../types/campaign';
 import { KeywordList } from '../KeywordList/KeywordList';
 import { StatusBadge } from '../StatusBadge/StatusBadge';
@@ -34,6 +35,12 @@ export const CampaignCard = ({ campaign, onDelete, onToggleStatus }: CampaignCar
         >
           {campaign.status ? 'Wyłącz' : 'Włącz'}
         </button>
+        <Link
+          to={`/campaigns/${campaign.id}/edit`}
+          className="campaign-card__btn campaign-card__btn--edit"
+        >
+          Edytuj
+        </Link>
         <button
           className="campaign-card__btn campaign-card__btn--delete"
           onClick={() => onDelete(campaign)}
