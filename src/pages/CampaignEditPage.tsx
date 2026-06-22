@@ -18,9 +18,11 @@ export const CampaignEditPage = () => {
     );
   }
 
+  const availableBalance = state.billingAccount.balance + campaign.fundAmount;
+
   const handleSubmit = (data: CampaignFormData) => {
     dispatch({ type: 'UPDATE_CAMPAIGN', payload: { id: campaign.id, ...data } });
-    navigate('/');
+    navigate('/', { state: { toast: 'Kampania została zaktualizowana.' } });
   };
 
   return (
@@ -30,6 +32,7 @@ export const CampaignEditPage = () => {
         defaultValues={campaign}
         onSubmit={handleSubmit}
         onCancel={() => navigate('/')}
+        availableBalance={availableBalance}
       />
     </section>
   );

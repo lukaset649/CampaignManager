@@ -9,6 +9,7 @@ interface CampaignFormProps {
   onSubmit: (data: CampaignFormData) => void;
   onCancel: () => void;
   defaultValues?: CampaignFormData;
+  availableBalance?: number;
 }
 
 const EMPTY_FORM = {
@@ -31,10 +32,26 @@ const toFormValues = (values: CampaignFormData) => ({
   radius: String(values.radius),
 });
 
-export const CampaignForm = ({ onSubmit, onCancel, defaultValues }: CampaignFormProps) => {
+export const CampaignForm = ({
+  onSubmit,
+  onCancel,
+  defaultValues,
+  availableBalance,
+}: CampaignFormProps) => {
   const [formData, setFormData] = useState(
     defaultValues ? toFormValues(defaultValues) : EMPTY_FORM,
   );
+  const [fundAmountError, setFundAmountError] = useState<string | null>(null);
+
+  const validateFundAmount = (value: string) => {
+    if (availableBalance === undefined) {
+      return null;
+    }
+    if (Number(value) > availableBalance) {
+      return `Niewystarczające środki. Dostępne saldo: ${availableBalance.toFixed(2)} PLN`;
+    }
+    return null;
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -42,10 +59,18 @@ export const CampaignForm = ({ onSubmit, onCancel, defaultValues }: CampaignForm
       ...prev,
       [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
     }));
+    if (name === 'fundAmount') {
+      setFundAmountError(validateFundAmount(value));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const error = validateFundAmount(formData.fundAmount);
+    if (error) {
+      setFundAmountError(error);
+      return;
+    }
     onSubmit({
       name: formData.name,
       keywords: formData.keywords.split(',').map((k) => k.trim()).filter(Boolean),
@@ -76,7 +101,20 @@ export const CampaignForm = ({ onSubmit, onCancel, defaultValues }: CampaignForm
 
       <div className="campaign-form__field">
         <label htmlFor="fundAmount">Budżet (PLN)</label>
-        <input id="fundAmount" name="fundAmount" type="number" min="0" step="0.01" value={formData.fundAmount} onChange={handleChange} required />
+        <input
+          id="fundAmount"
+          name="fundAmount"
+          type="number"
+          min="0"
+          step="0.01"
+          value={formData.fundAmount}
+          onChange={handleChange}
+          required
+          className={fundAmountError ? 'campaign-form__input--error' : ''}
+        />
+        {fundAmountError && (
+          <span className="campaign-form__error">{fundAmountError}</span>
+        )}
       </div>
 
       <div className="campaign-form__field">
@@ -100,7 +138,7 @@ export const CampaignForm = ({ onSubmit, onCancel, defaultValues }: CampaignForm
       </div>
 
       <div className="campaign-form__actions">
-        <button type="submit">Zapisz kampanię</button>
+        <button type="submit" disabled={!!fundAmountError}>Zapisz kampanię</button>
         <button type="button" onClick={onCancel}>Anuluj</button>
       </div>
     </form>
