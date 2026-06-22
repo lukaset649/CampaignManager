@@ -39,6 +39,14 @@ export const campaignReducer = (state: AppState, action: CampaignAction): AppSta
       };
     }
 
+    case 'TOGGLE_STATUS':
+      return {
+        ...state,
+        campaigns: state.campaigns.map((c) =>
+          c.id === action.payload.id ? { ...c, status: !c.status } : c,
+        ),
+      };
+
     case 'HYDRATE_STATE':
       return action.payload;
   }
