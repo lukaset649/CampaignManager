@@ -6,9 +6,11 @@ import './CampaignCard.less';
 
 interface CampaignCardProps {
   campaign: Campaign;
+  onDelete: (campaign: Campaign) => void;
+  onToggleStatus: (id: string) => void;
 }
 
-export const CampaignCard = ({ campaign }: CampaignCardProps) => {
+export const CampaignCard = ({ campaign, onDelete, onToggleStatus }: CampaignCardProps) => {
   return (
     <article className="campaign-card">
       <div className="campaign-card__header">
@@ -24,6 +26,21 @@ export const CampaignCard = ({ campaign }: CampaignCardProps) => {
       </dl>
 
       <KeywordList keywords={campaign.keywords} />
+
+      <div className="campaign-card__actions">
+        <button
+          className="campaign-card__btn campaign-card__btn--toggle"
+          onClick={() => onToggleStatus(campaign.id)}
+        >
+          {campaign.status ? 'Wyłącz' : 'Włącz'}
+        </button>
+        <button
+          className="campaign-card__btn campaign-card__btn--delete"
+          onClick={() => onDelete(campaign)}
+        >
+          Usuń
+        </button>
+      </div>
     </article>
   );
 };

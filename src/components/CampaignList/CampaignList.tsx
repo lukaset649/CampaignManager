@@ -1,10 +1,30 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CampaignCard } from '../CampaignCard/CampaignCard';
+import type { Campaign } from '../../types/campaign';
 import { useCampaigns } from '../../hooks/useCampaigns';
+import { CampaignCard } from '../CampaignCard/CampaignCard';
+import { ConfirmDeleteModal } from '../ConfirmDeleteModal/ConfirmDeleteModal';
 import './CampaignList.less';
 
 export const CampaignList = () => {
-  const { state } = useCampaigns();
+  const { state, dispatch } = useCampaigns();
+  const [campaignToDelete, setCampaignToDelete] = useState<Campaign | null>(null);
+
+  const handleDeleteRequest = (campaign: Campaign) => setCampaignToDelete(campaign);
+
+  const handleDeleteConfirm = () => {
+    if (!campaignToDelete) {
+      return;
+    }
+    dispatch({ type: 'DELETE_CAMPAIGN', payload: { id: campaignToDelete.id } });
+    setCampaignToDelete(null);
+  };
+
+  const handleDeleteCancel = () => setCampaignToDelete(null);
+
+  const handleToggleStatus = (id: string) => {
+    dispatch({ type: 'TOGGLE_STATUS', payload: { id } });
+  };
 
   if (state.campaigns.length === 0) {
     return (
@@ -16,12 +36,24 @@ export const CampaignList = () => {
   }
 
   return (
-    <ul className="campaign-list">
-      {state.campaigns.map((campaign) => (
-        <li key={campaign.id}>
-          <CampaignCard campaign={campaign} />
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul className="campaign-list">
+        {state.campaigns.map((campaign) => (
+          <li key={campaign.id}>
+            <CampaignCard
+              campaign={campaign}
+              onDelete={handleDeleteRequest}
+              onToggleStatus={handleToggleStatus}
+            />
+          </li>
+        ))}
+      </ul>
+      <ConfirmDeleteModal
+        isOpen={campaignToDelete !== null}
+        campaignName={campaignToDelete?.name ?? ''}
+        onConfirm={handleDeleteConfirm}
+        onCancel={handleDeleteCancel}
+      />
+    </>
   );
 };
