@@ -1,4 +1,6 @@
 import type { Campaign } from '../../types/campaign';
+import { KeywordList } from '../KeywordList/KeywordList';
+import { StatusBadge } from '../StatusBadge/StatusBadge';
 import { CampaignDetail } from './CampaignDetail';
 import './CampaignCard.less';
 
@@ -11,9 +13,7 @@ export const CampaignCard = ({ campaign }: CampaignCardProps) => {
     <article className="campaign-card">
       <div className="campaign-card__header">
         <h2 className="campaign-card__name">{campaign.name}</h2>
-        <span className={`campaign-card__status campaign-card__status--${campaign.status ? 'on' : 'off'}`}>
-          {campaign.status ? 'ON' : 'OFF'}
-        </span>
+        <StatusBadge isActive={campaign.status} />
       </div>
 
       <dl className="campaign-card__details">
@@ -23,13 +23,7 @@ export const CampaignCard = ({ campaign }: CampaignCardProps) => {
         <CampaignDetail label="Budżet" value={`${campaign.fundAmount.toFixed(2)} PLN`} />
       </dl>
 
-      <div className="campaign-card__keywords">
-        {campaign.keywords.map((keyword) => (
-          <span key={keyword} className="campaign-card__keyword">
-            {keyword}
-          </span>
-        ))}
-      </div>
+      <KeywordList keywords={campaign.keywords} />
     </article>
   );
 };
