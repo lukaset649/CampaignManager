@@ -1,13 +1,15 @@
+@import '../../styles/variables.less';
+
 .keyword-list {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 
   &__tag {
-    font-size: 0.75rem;
-    background: #ede9fe;
-    color: #5b21b6;
-    padding: 2px 8px;
-    border-radius: 10px;
+    font-size: @font-size-xs;
+    background: @color-keyword-bg;
+    color: @color-keyword-text;
+    padding: 2px @spacing-sm;
+    border-radius: @radius-pill;
   }
 }

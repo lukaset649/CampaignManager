@@ -1,67 +1,41 @@
+@import '../../styles/variables.less';
+@import '../../styles/mixins.less';
+
 .campaign-card {
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  padding: 16px;
-  background: #fff;
-  max-width: 480px;
+  border: 1px solid @color-gray-300;
+  border-radius: @radius-md;
+  padding: @spacing-md;
+  background: @color-white;
+  box-shadow: @shadow-sm;
 
   &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 12px;
+    .flex-between();
+    gap: @spacing-md;
+    margin-bottom: @spacing-sm;
   }
 
   &__name {
-    font-size: 1.1rem;
+    font-size: @font-size-lg;
     font-weight: 600;
     margin: 0;
   }
 
-  &__actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 12px;
-  }
-
-  &__btn {
-    padding: 6px 14px;
-    border-radius: 6px;
-    border: 1px solid #d1d5db;
-    cursor: pointer;
-    font-size: 0.85rem;
-
-    &--toggle {
-      background: #f3f4f6;
-    }
-
-    &--edit {
-      background: #eff6ff;
-      color: #1d4ed8;
-      border-color: #bfdbfe;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-    }
-
-    &--delete {
-      background: #fee2e2;
-      color: #dc2626;
-      border-color: #fecaca;
-    }
-  }
-
   &__details {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px 16px;
-    margin: 0 0 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: @spacing-sm @spacing-md;
+    margin: 0 0 @spacing-sm;
+
+    > div {
+      flex: 0 0 calc(50% - @spacing-sm);
+    }
 
     dt {
-      font-size: 0.75rem;
-      color: #6b7280;
+      font-size: @font-size-xs;
+      color: @color-gray-500;
       margin-bottom: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
     }
 
     dd {
@@ -71,4 +45,35 @@
     }
   }
 
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: @spacing-sm;
+    margin-top: @spacing-sm;
+  }
+
+  &__btn {
+    .btn-base();
+    padding: 6px 14px;
+    font-size: @font-size-sm;
+
+    &--toggle {
+      background: @color-gray-100;
+    }
+
+    &--edit {
+      background: @color-info-light;
+      color: @color-info;
+      border-color: @color-info-border;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    &--delete {
+      background: @color-danger-light;
+      color: @color-danger;
+      border-color: @color-danger-border;
+    }
+  }
 }

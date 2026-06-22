@@ -1,38 +1,37 @@
+@import '../../styles/variables.less';
+@import '../../styles/mixins.less';
+
 .confirm-delete-modal {
   &__title {
-    font-size: 1.1rem;
+    font-size: @font-size-lg;
     font-weight: 600;
-    margin: 0 0 12px;
+    margin: 0 0 @spacing-sm;
   }
 
   &__message {
-    color: #374151;
-    margin: 0 0 24px;
+    color: @color-gray-700;
+    margin: 0 0 @spacing-lg;
     line-height: 1.5;
   }
 
   &__actions {
     display: flex;
-    gap: 8px;
+    gap: @spacing-sm;
     justify-content: flex-end;
   }
 
   &__btn--confirm,
   &__btn--cancel {
-    padding: 8px 20px;
-    border-radius: 6px;
-    border: 1px solid #d1d5db;
-    cursor: pointer;
-    font-size: 0.95rem;
+    .btn-base();
   }
 
   &__btn--confirm {
-    background: #dc2626;
-    color: #fff;
-    border-color: #dc2626;
+    background: @color-danger;
+    color: @color-white;
+    border-color: @color-danger;
   }
 
   &__btn--cancel {
-    background: #fff;
+    background: @color-white;
   }
 }

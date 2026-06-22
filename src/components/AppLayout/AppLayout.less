@@ -1,31 +1,32 @@
+@import '../../styles/variables.less';
+@import '../../styles/mixins.less';
+
 .app-header {
   position: sticky;
   top: 0;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 24px;
-  background: #fff;
-  border-bottom: 1px solid #e5e7eb;
+  z-index: @z-header;
+  .flex-between();
+  padding: @spacing-sm @spacing-lg;
+  background: @color-white;
+  border-bottom: 1px solid @color-gray-200;
 
   &__title {
-    font-size: 1.1rem;
+    font-size: @font-size-lg;
     font-weight: 700;
-    color: #065f46;
+    color: @color-primary-dark;
   }
 
   &__right {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: @spacing-lg;
   }
 
   &__add-link {
-    padding: 8px 16px;
-    background: #059669;
-    color: #fff;
-    border-radius: 6px;
+    padding: @spacing-sm @spacing-md;
+    background: @color-primary;
+    color: @color-white;
+    border-radius: @radius-sm;
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 500;
@@ -33,5 +34,9 @@
 }
 
 .app-main {
-  padding: 24px;
+  padding: @spacing-md;
+
+  .tablet({
+    padding: @spacing-lg;
+  });
 }

@@ -1,17 +1,19 @@
+@import '../../styles/variables.less';
+
 .status-badge {
-  font-size: 0.75rem;
+  font-size: @font-size-xs;
   font-weight: 700;
   padding: 2px 10px;
-  border-radius: 12px;
+  border-radius: @radius-pill;
   letter-spacing: 0.05em;
 
   &--on {
-    background: #d1fae5;
-    color: #065f46;
+    background: @color-primary-light;
+    color: @color-primary-dark;
   }
 
   &--off {
-    background: #f3f4f6;
-    color: #6b7280;
+    background: @color-gray-100;
+    color: @color-gray-500;
   }
 }

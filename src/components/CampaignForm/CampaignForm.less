@@ -1,12 +1,29 @@
+@import '../../styles/variables.less';
+@import '../../styles/mixins.less';
+
 .campaign-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: @spacing-md;
+
+  .tablet({
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+
+    .campaign-form__field {
+      flex: 0 0 calc(50% - @spacing-sm);
+    }
+
+    .campaign-form__actions {
+      flex: 0 0 100%;
+    }
+  });
 
   &__field {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: @spacing-xs;
 
     label {
       font-size: 0.875rem;
@@ -15,53 +32,41 @@
 
     input,
     select {
-      padding: 8px 10px;
-      border: 1px solid #d1d5db;
-      border-radius: 6px;
-      font-size: 0.95rem;
-
-      &:focus {
-        outline: none;
-        border-color: #059669;
-      }
+      .input-base();
     }
 
     &--checkbox {
       flex-direction: row;
       align-items: center;
-      gap: 8px;
+      gap: @spacing-sm;
     }
   }
 
   &__input--error {
-    border-color: #dc2626 !important;
+    border-color: @color-danger !important;
   }
 
   &__error {
-    font-size: 0.8rem;
-    color: #dc2626;
+    font-size: @font-size-sm;
+    color: @color-danger;
   }
 
   &__actions {
     display: flex;
-    gap: 8px;
-    margin-top: 8px;
+    gap: @spacing-sm;
+    margin-top: @spacing-sm;
 
     button {
-      padding: 8px 20px;
-      border-radius: 6px;
-      border: 1px solid #d1d5db;
-      cursor: pointer;
-      font-size: 0.95rem;
+      .btn-base();
 
       &[type='submit'] {
-        background: #059669;
-        color: #fff;
-        border-color: #059669;
+        background: @color-primary;
+        color: @color-white;
+        border-color: @color-primary;
 
         &:disabled {
-          background: #9ca3af;
-          border-color: #9ca3af;
+          background: @color-gray-300;
+          border-color: @color-gray-300;
           cursor: not-allowed;
         }
       }

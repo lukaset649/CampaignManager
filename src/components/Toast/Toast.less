@@ -1,14 +1,16 @@
+@import '../../styles/variables.less';
+
 .toast {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
-  background: #065f46;
-  color: #fff;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 200;
+  bottom: @spacing-lg;
+  right: @spacing-lg;
+  background: @color-primary-dark;
+  color: @color-white;
+  padding: @spacing-sm @spacing-md;
+  border-radius: @radius-md;
+  font-size: @font-size-base;
+  box-shadow: @shadow-md;
+  z-index: @z-toast;
   animation: toast-in 0.2s ease;
 }
 
