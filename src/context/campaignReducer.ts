@@ -27,6 +27,18 @@ export const campaignReducer = (state: AppState, action: CampaignAction): AppSta
       };
     }
 
+    case 'DELETE_CAMPAIGN': {
+      const campaignToDelete = state.campaigns.find((c) => c.id === action.payload.id);
+      return {
+        ...state,
+        campaigns: state.campaigns.filter((c) => c.id !== action.payload.id),
+        billingAccount: {
+          ...state.billingAccount,
+          balance: state.billingAccount.balance + (campaignToDelete?.fundAmount ?? 0),
+        },
+      };
+    }
+
     case 'HYDRATE_STATE':
       return action.payload;
   }
