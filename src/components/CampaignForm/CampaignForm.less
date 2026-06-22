@@ -1,0 +1,55 @@
+.campaign-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    label {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    input,
+    select {
+      padding: 8px 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 0.95rem;
+
+      &:focus {
+        outline: none;
+        border-color: #059669;
+      }
+    }
+
+    &--checkbox {
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+
+    button {
+      padding: 8px 20px;
+      border-radius: 6px;
+      border: 1px solid #d1d5db;
+      cursor: pointer;
+      font-size: 0.95rem;
+
+      &[type='submit'] {
+        background: #059669;
+        color: #fff;
+        border-color: #059669;
+      }
+    }
+  }
+}
