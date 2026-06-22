@@ -1,0 +1,46 @@
+@import './variables.less';
+
+.tablet(@rules) {
+  @media (min-width: @breakpoint-tablet) {
+    @rules();
+  }
+}
+
+.desktop(@rules) {
+  @media (min-width: @breakpoint-desktop) {
+    @rules();
+  }
+}
+
+.flex-between() {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-center() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-base() {
+  padding: @spacing-sm 20px;
+  border-radius: @radius-sm;
+  border: 1px solid @color-gray-300;
+  cursor: pointer;
+  font-size: @font-size-base;
+  line-height: 1;
+}
+
+.input-base() {
+  padding: @spacing-sm 10px;
+  border: 1px solid @color-gray-300;
+  border-radius: @radius-sm;
+  font-size: @font-size-base;
+
+  &:focus {
+    outline: none;
+    border-color: @color-primary;
+  }
+}
