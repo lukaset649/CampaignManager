@@ -1,0 +1,15 @@
+import { Route, Routes } from 'react-router-dom';
+import { AppLayout } from '../components/AppLayout/AppLayout';
+import { CampaignCreatePage } from '../pages/CampaignCreatePage';
+import { CampaignEditPage } from '../pages/CampaignEditPage';
+import { CampaignListPage } from '../pages/CampaignListPage';
+
+export const AppRouter = () => (
+  <Routes>
+    <Route element={<AppLayout />}>
+      <Route path="/" element={<CampaignListPage />} />
+      <Route path="/campaigns/new" element={<CampaignCreatePage />} />
+      <Route path="/campaigns/:id/edit" element={<CampaignEditPage />} />
+    </Route>
+  </Routes>
+);
