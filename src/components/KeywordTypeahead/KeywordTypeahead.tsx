@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { mockKeywords } from '../../data/mockKeywords';
+import { KeywordChip } from './KeywordChip';
+import { KeywordDropdown } from './KeywordDropdown';
 import './KeywordTypeahead.less';
 
 interface KeywordTypeaheadProps {
@@ -57,17 +59,11 @@ export const KeywordTypeahead = ({ value, onChange, error }: KeywordTypeaheadPro
     <div className="keyword-typeahead">
       <div className={`keyword-typeahead__input-area${error ? ' keyword-typeahead__input-area--error' : ''}`}>
         {value.map((keyword) => (
-          <span key={keyword} className="keyword-typeahead__chip">
-            {keyword}
-            <button
-              type="button"
-              className="keyword-typeahead__chip-remove"
-              onClick={() => removeKeyword(keyword)}
-              aria-label={`Usuń ${keyword}`}
-            >
-              ×
-            </button>
-          </span>
+          <KeywordChip
+            key={keyword}
+            label={keyword}
+            onRemove={() => removeKeyword(keyword)}
+          />
         ))}
         <input
           type="text"
@@ -81,19 +77,7 @@ export const KeywordTypeahead = ({ value, onChange, error }: KeywordTypeaheadPro
         />
       </div>
       {shouldShowDropdown && (
-        <ul className="keyword-typeahead__dropdown" role="listbox">
-          {filteredSuggestions.map((suggestion) => (
-            <li key={suggestion} role="option" aria-selected={false}>
-              <button
-                type="button"
-                className="keyword-typeahead__suggestion"
-                onMouseDown={() => addKeyword(suggestion)}
-              >
-                {suggestion}
-              </button>
-            </li>
-          ))}
-        </ul>
+        <KeywordDropdown suggestions={filteredSuggestions} onSelect={addKeyword} />
       )}
       {error && <span className="keyword-typeahead__error">{error}</span>}
     </div>
