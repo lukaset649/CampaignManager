@@ -11,7 +11,7 @@ import './CampaignList.less';
 export const CampaignList = () => {
   const { state, dispatch } = useCampaigns();
   const [campaignToDelete, setCampaignToDelete] = useState<Campaign | null>(null);
-  const [toast, setToast] = useState<{ message: string; variant: 'success' | 'warning' } | null>(null);
+  const [toast, setToast] = useState<{ id: number; message: string; variant: 'success' | 'warning' } | null>(null);
 
   const handleDeleteRequest = (campaign: Campaign) => setCampaignToDelete(campaign);
 
@@ -30,8 +30,8 @@ export const CampaignList = () => {
     dispatch({ type: 'TOGGLE_STATUS', payload: { id } });
     setToast(
       campaign?.status
-        ? { message: 'Kampania została wyłączona.', variant: 'warning' }
-        : { message: 'Kampania została włączona.', variant: 'success' },
+        ? { id: Date.now(), message: 'Kampania została wyłączona.', variant: 'warning' }
+        : { id: Date.now(), message: 'Kampania została włączona.', variant: 'success' },
     );
   };
 
@@ -64,7 +64,7 @@ export const CampaignList = () => {
         onCancel={handleDeleteCancel}
       />
       {toast && (
-        <Toast message={toast.message} variant={toast.variant} onHide={() => setToast(null)} />
+        <Toast key={toast.id} message={toast.message} variant={toast.variant} onHide={() => setToast(null)} />
       )}
     </>
   );

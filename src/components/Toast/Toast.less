@@ -1,5 +1,7 @@
 @import '../../styles/variables.less';
 
+@toast-duration: 3s;
+
 .toast {
   position: fixed;
   bottom: @spacing-lg;
@@ -10,6 +12,7 @@
   font-size: @font-size-base;
   box-shadow: @shadow-md;
   z-index: @z-toast;
+  overflow: hidden;
   animation: toast-in 0.2s ease;
 
   &--success {
@@ -18,6 +21,16 @@
 
   &--warning {
     background: @color-warning;
+  }
+
+  &__progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    animation: toast-progress @toast-duration linear forwards;
   }
 }
 
@@ -30,4 +43,9 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes toast-progress {
+  from { width: 100%; }
+  to   { width: 0%; }
 }

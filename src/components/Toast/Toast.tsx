@@ -20,6 +20,7 @@ export const Toast = ({ message, onHide, variant = 'success' }: ToastProps) => {
   return (
     <div className={`toast toast--${variant}`} role="status" aria-live="polite">
       {message}
+      <div className="toast__progress" />
     </div>
   );
 };
