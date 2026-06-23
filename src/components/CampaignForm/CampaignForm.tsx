@@ -56,7 +56,7 @@ export const CampaignForm = ({
           className={errors.name ? 'campaign-form__input--error' : ''}
           {...register('name')}
         />
-        {errors.name && <span className="campaign-form__error">{errors.name.message}</span>}
+        <span className="campaign-form__error">{errors.name?.message ?? ' '}</span>
       </div>
 
       <div className="campaign-form__field">
@@ -69,7 +69,7 @@ export const CampaignForm = ({
           className={errors.bidAmount ? 'campaign-form__input--error' : ''}
           {...register('bidAmount')}
         />
-        {errors.bidAmount && <span className="campaign-form__error">{errors.bidAmount.message}</span>}
+        <span className="campaign-form__error">{errors.bidAmount?.message ?? ' '}</span>
       </div>
 
       <div className="campaign-form__field">
@@ -82,7 +82,7 @@ export const CampaignForm = ({
           className={errors.fundAmount ? 'campaign-form__input--error' : ''}
           {...register('fundAmount')}
         />
-        {errors.fundAmount && <span className="campaign-form__error">{errors.fundAmount.message}</span>}
+        <span className="campaign-form__error">{errors.fundAmount?.message ?? ' '}</span>
       </div>
 
       <div className="campaign-form__field">
@@ -98,6 +98,7 @@ export const CampaignForm = ({
             />
           )}
         />
+        <span className="campaign-form__error">{errors.town?.message ?? " "}</span>
       </div>
 
       <div className="campaign-form__field">
@@ -109,7 +110,7 @@ export const CampaignForm = ({
           className={errors.radius ? 'campaign-form__input--error' : ''}
           {...register('radius')}
         />
-        {errors.radius && <span className="campaign-form__error">{errors.radius.message}</span>}
+        <span className="campaign-form__error">{errors.radius?.message ?? ' '}</span>
       </div>
 
       <div className="campaign-form__field campaign-form__field--full">
@@ -125,6 +126,7 @@ export const CampaignForm = ({
             />
           )}
         />
+        <span className="campaign-form__error">{errors.keywords?.root?.message ?? " "}</span>
       </div>
 
       <div className="campaign-form__field campaign-form__field--full">

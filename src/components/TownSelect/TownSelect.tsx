@@ -21,6 +21,5 @@ export const TownSelect = ({ value, onChange, error }: TownSelectProps) => (
         </option>
       ))}
     </select>
-    {error && <span className="town-select__error">{error}</span>}
   </div>
 );

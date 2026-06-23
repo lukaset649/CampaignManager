@@ -79,7 +79,6 @@ export const KeywordTypeahead = ({ value, onChange, error }: KeywordTypeaheadPro
       {shouldShowDropdown && (
         <KeywordDropdown suggestions={filteredSuggestions} onSelect={addKeyword} />
       )}
-      {error && <span className="keyword-typeahead__error">{error}</span>}
     </div>
   );
 };

@@ -4,7 +4,8 @@
 .campaign-form {
   display: flex;
   flex-direction: column;
-  gap: @spacing-md;
+  row-gap: @spacing-sm;
+  column-gap: @spacing-md;
 
   .tablet({
     flex-direction: row;
@@ -27,7 +28,7 @@
   &__field {
     display: flex;
     flex-direction: column;
-    gap: @spacing-xs;
+    gap: @spacing-2xs;
 
     label {
       font-size: 0.875rem;
@@ -46,7 +47,9 @@
   }
 
   &__error {
+    display: block;
     font-size: @font-size-sm;
+    line-height: 1.4;
     color: @color-danger;
   }
 
