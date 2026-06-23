@@ -7,6 +7,9 @@
   padding: @spacing-md;
   background: @color-white;
   box-shadow: @shadow-sm;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 
   &__header {
     .flex-between();
@@ -49,7 +52,8 @@
     display: flex;
     flex-wrap: wrap;
     gap: @spacing-sm;
-    margin-top: @spacing-sm;
+    margin-top: auto;
+    padding-top: @spacing-sm;
   }
 
   &__btn {

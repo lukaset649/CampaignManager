@@ -3,7 +3,9 @@
 .keyword-list {
   display: flex;
   flex-wrap: wrap;
-  gap: @radius-sm;
+  gap: @spacing-xs;
+  min-height: 3rem;
+  align-content: flex-start;
 
   &__tag {
     font-size: @font-size-xs;
@@ -11,5 +13,50 @@
     color: @color-keyword-text;
     padding: @spacing-2xs @spacing-sm;
     border-radius: @radius-pill;
+    white-space: nowrap;
+  }
+
+  &__overflow {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: @spacing-2xs @spacing-sm;
+    background: @color-gray-200;
+    color: @color-gray-700;
+    border-radius: @radius-pill;
+    font-size: @font-size-xs;
+    font-weight: 600;
+    cursor: default;
+    user-select: none;
+
+    &:hover .keyword-list__tooltip {
+      display: flex;
+    }
+  }
+
+  &__tooltip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + @spacing-xs);
+    left: 0;
+    flex-wrap: wrap;
+    gap: @spacing-xs;
+    padding: @spacing-sm;
+    background: @color-white;
+    border: 1px solid @color-gray-300;
+    border-radius: @radius-md;
+    box-shadow: @shadow-lg;
+    z-index: 10;
+    min-width: 10rem;
+    max-width: 18rem;
+  }
+
+  &__tooltip-tag {
+    font-size: @font-size-xs;
+    background: @color-keyword-bg;
+    color: @color-keyword-text;
+    padding: @spacing-2xs @spacing-sm;
+    border-radius: @radius-pill;
+    white-space: nowrap;
   }
 }
