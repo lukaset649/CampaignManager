@@ -17,6 +17,6 @@ export const saveState = (state: AppState): void => {
   try {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
   } catch {
-    // localStorage may be unavailable (private mode, quota exceeded) — silently ignore
+    // localStorage may be unavailable (private mode)
   }
 };
