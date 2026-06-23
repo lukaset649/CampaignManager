@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { CampaignList } from '../components/CampaignList/CampaignList';
 import { Toast } from '../components/Toast/Toast';
+import './CampaignListPage.less';
 
 export const CampaignListPage = () => {
   const location = useLocation();
@@ -10,7 +11,7 @@ export const CampaignListPage = () => {
   );
 
   return (
-    <section>
+    <section className="campaign-list-page">
       <h1>Kampanie</h1>
       <CampaignList />
       {toastMessage && (
