@@ -1,0 +1,61 @@
+@import '../../styles/variables.less';
+
+@toggle-width:  2.75rem;
+@toggle-height: 1.5rem;
+@knob-size:     1rem;
+@knob-offset:   0.25rem;
+
+.toggle-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: @spacing-sm;
+  cursor: pointer;
+  user-select: none;
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .toggle-switch__track {
+      background: @color-primary;
+    }
+
+    &:checked + .toggle-switch__track .toggle-switch__knob {
+      transform: translateX(20px);
+    }
+
+    &:focus-visible + .toggle-switch__track {
+      outline: 2px solid @color-primary;
+      outline-offset: 2px;
+    }
+  }
+
+  &__track {
+    position: relative;
+    width: @toggle-width;
+    height: @toggle-height;
+    background: @color-gray-300;
+    border-radius: @radius-pill;
+    transition: background 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  &__knob {
+    position: absolute;
+    top: @knob-offset;
+    left: @knob-offset;
+    width: @knob-size;
+    height: @knob-size;
+    background: @color-white;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease;
+  }
+
+  &__label {
+    font-size: @font-size-base;
+    font-weight: 500;
+  }
+}
