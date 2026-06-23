@@ -29,9 +29,25 @@
     background: @color-danger;
     color: @color-white;
     border-color: @color-danger;
+
+    &:hover {
+      background: darken(@color-danger, 8%);
+    }
+
+    &:active {
+      background: darken(@color-danger, 14%);
+    }
   }
 
   &__btn--cancel {
     background: @color-white;
+
+    &:hover {
+      background: @color-gray-100;
+    }
+
+    &:active {
+      background: @color-gray-200;
+    }
   }
 }

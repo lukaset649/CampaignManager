@@ -68,12 +68,28 @@
       text-decoration: none;
       display: inline-flex;
       align-items: center;
+
+      &:hover {
+        background: darken(@color-info-light, 6%);
+      }
+
+      &:active {
+        background: darken(@color-info-light, 12%);
+      }
     }
 
     &--delete {
       background: @color-danger-light;
       color: @color-danger;
       border-color: @color-danger-border;
+
+      &:hover {
+        background: darken(@color-danger-light, 6%);
+      }
+
+      &:active {
+        background: darken(@color-danger-light, 12%);
+      }
     }
   }
 }

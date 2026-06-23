@@ -60,11 +60,28 @@
 
     button {
       .btn-base();
+      background: @color-white;
+
+      &:hover:not(:disabled) {
+        background: @color-gray-100;
+      }
+
+      &:active:not(:disabled) {
+        background: @color-gray-200;
+      }
 
       &[type='submit'] {
         background: @color-primary;
         color: @color-white;
         border-color: @color-primary;
+
+        &:hover:not(:disabled) {
+          background: darken(@color-primary, 8%);
+        }
+
+        &:active:not(:disabled) {
+          background: darken(@color-primary, 14%);
+        }
 
         &:disabled {
           background: @color-gray-300;
