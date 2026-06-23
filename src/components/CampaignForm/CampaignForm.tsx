@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { MIN_BID_AMOUNT } from '../../config/constants';
-import { mockTowns } from '../../data/mockTowns';
 import type { CampaignFormData } from '../../utils/validation';
+import { campaignSchema } from '../../utils/validation';
 import { formatCurrency } from '../../utils/format';
+import { KeywordTypeahead } from '../KeywordTypeahead/KeywordTypeahead';
+import { TownSelect } from '../TownSelect/TownSelect';
 import './CampaignForm.less';
 
 export type { CampaignFormData } from '../../utils/validation';
@@ -14,133 +17,122 @@ interface CampaignFormProps {
   availableBalance?: number;
 }
 
-const EMPTY_FORM = {
-  name: '',
-  keywords: '',
-  bidAmount: '',
-  fundAmount: '',
-  status: true,
-  town: '',
-  radius: '',
-};
-
-const toFormValues = (values: CampaignFormData) => ({
-  name: values.name,
-  keywords: values.keywords.join(', '),
-  bidAmount: String(values.bidAmount),
-  fundAmount: String(values.fundAmount),
-  status: values.status,
-  town: values.town,
-  radius: String(values.radius),
-});
-
 export const CampaignForm = ({
   onSubmit,
   onCancel,
   defaultValues,
   availableBalance,
 }: CampaignFormProps) => {
-  const [formData, setFormData] = useState(
-    defaultValues ? toFormValues(defaultValues) : EMPTY_FORM,
-  );
-  const [fundAmountError, setFundAmountError] = useState<string | null>(null);
+  const {
+    register,
+    handleSubmit,
+    control,
+    setError,
+    formState: { errors },
+  } = useForm<CampaignFormData>({
+    resolver: zodResolver(campaignSchema),
+    defaultValues: defaultValues ?? { keywords: [], status: true },
+  });
 
-  const validateFundAmount = (value: string) => {
-    if (availableBalance === undefined) {
-      return null;
-    }
-    if (Number(value) > availableBalance) {
-      return `Niewystarczające środki. Dostępne saldo: ${formatCurrency(availableBalance)}`;
-    }
-    return null;
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
-    }));
-    if (name === 'fundAmount') {
-      setFundAmountError(validateFundAmount(value));
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const error = validateFundAmount(formData.fundAmount);
-    if (error) {
-      setFundAmountError(error);
+  const handleFormSubmit = (data: CampaignFormData) => {
+    if (availableBalance !== undefined && data.fundAmount > availableBalance) {
+      setError('fundAmount', {
+        type: 'manual',
+        message: `Niewystarczające środki. Dostępne saldo: ${formatCurrency(availableBalance)}`,
+      });
       return;
     }
-    onSubmit({
-      name: formData.name,
-      keywords: formData.keywords.split(',').map((k) => k.trim()).filter(Boolean),
-      bidAmount: Number(formData.bidAmount),
-      fundAmount: Number(formData.fundAmount),
-      status: formData.status,
-      town: formData.town,
-      radius: Number(formData.radius),
-    });
+    onSubmit(data);
   };
 
   return (
-    <form className="campaign-form" onSubmit={handleSubmit}>
+    <form className="campaign-form" onSubmit={handleSubmit(handleFormSubmit)}>
       <div className="campaign-form__field">
         <label htmlFor="name">Nazwa</label>
-        <input id="name" name="name" type="text" value={formData.name} onChange={handleChange} required />
+        <input
+          id="name"
+          type="text"
+          className={errors.name ? 'campaign-form__input--error' : ''}
+          {...register('name')}
+        />
+        {errors.name && <span className="campaign-form__error">{errors.name.message}</span>}
       </div>
 
       <div className="campaign-form__field">
-        <label htmlFor="keywords">Słowa kluczowe (rozdziel przecinkiem)</label>
-        <input id="keywords" name="keywords" type="text" value={formData.keywords} onChange={handleChange} />
+        <label>Słowa kluczowe</label>
+        <Controller
+          name="keywords"
+          control={control}
+          render={({ field, fieldState }) => (
+            <KeywordTypeahead
+              value={field.value ?? []}
+              onChange={field.onChange}
+              error={fieldState.error?.message}
+            />
+          )}
+        />
       </div>
 
       <div className="campaign-form__field">
         <label htmlFor="bidAmount">Stawka (PLN)</label>
-        <input id="bidAmount" name="bidAmount" type="number" min={MIN_BID_AMOUNT} step="0.01" value={formData.bidAmount} onChange={handleChange} required />
+        <input
+          id="bidAmount"
+          type="number"
+          step="0.01"
+          min={MIN_BID_AMOUNT}
+          className={errors.bidAmount ? 'campaign-form__input--error' : ''}
+          {...register('bidAmount')}
+        />
+        {errors.bidAmount && <span className="campaign-form__error">{errors.bidAmount.message}</span>}
       </div>
 
       <div className="campaign-form__field">
         <label htmlFor="fundAmount">Budżet (PLN)</label>
         <input
           id="fundAmount"
-          name="fundAmount"
           type="number"
-          min="0"
           step="0.01"
-          value={formData.fundAmount}
-          onChange={handleChange}
-          required
-          className={fundAmountError ? 'campaign-form__input--error' : ''}
+          min="0"
+          className={errors.fundAmount ? 'campaign-form__input--error' : ''}
+          {...register('fundAmount')}
         />
-        {fundAmountError && (
-          <span className="campaign-form__error">{fundAmountError}</span>
-        )}
+        {errors.fundAmount && <span className="campaign-form__error">{errors.fundAmount.message}</span>}
       </div>
 
       <div className="campaign-form__field">
-        <label htmlFor="town">Miasto</label>
-        <select id="town" name="town" value={formData.town} onChange={handleChange} required>
-          <option value="">-- wybierz miasto --</option>
-          {mockTowns.map((town) => (
-            <option key={town} value={town}>{town}</option>
-          ))}
-        </select>
+        <label>Miasto</label>
+        <Controller
+          name="town"
+          control={control}
+          render={({ field, fieldState }) => (
+            <TownSelect
+              value={field.value}
+              onChange={field.onChange}
+              error={fieldState.error?.message}
+            />
+          )}
+        />
       </div>
 
       <div className="campaign-form__field">
         <label htmlFor="radius">Zasięg (km)</label>
-        <input id="radius" name="radius" type="number" min="1" value={formData.radius} onChange={handleChange} required />
+        <input
+          id="radius"
+          type="number"
+          min="1"
+          className={errors.radius ? 'campaign-form__input--error' : ''}
+          {...register('radius')}
+        />
+        {errors.radius && <span className="campaign-form__error">{errors.radius.message}</span>}
       </div>
 
       <div className="campaign-form__field campaign-form__field--checkbox">
-        <input id="status" name="status" type="checkbox" checked={formData.status} onChange={handleChange} />
+        <input id="status" type="checkbox" {...register('status')} />
         <label htmlFor="status">Aktywna (ON)</label>
       </div>
 
       <div className="campaign-form__actions">
-        <button type="submit" disabled={!!fundAmountError}>Zapisz kampanię</button>
+        <button type="submit">Zapisz kampanię</button>
         <button type="button" onClick={onCancel}>Anuluj</button>
       </div>
     </form>
