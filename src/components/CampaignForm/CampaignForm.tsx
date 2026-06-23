@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import type { Campaign } from '../../types/campaign';
+import { MIN_BID_AMOUNT } from '../../config/constants';
 import { mockTowns } from '../../data/mockTowns';
+import type { CampaignFormData } from '../../utils/validation';
 import { formatCurrency } from '../../utils/format';
 import './CampaignForm.less';
 
-export type CampaignFormData = Omit<Campaign, 'id'>;
+export type { CampaignFormData } from '../../utils/validation';
 
 interface CampaignFormProps {
   onSubmit: (data: CampaignFormData) => void;
@@ -97,7 +98,7 @@ export const CampaignForm = ({
 
       <div className="campaign-form__field">
         <label htmlFor="bidAmount">Stawka (PLN)</label>
-        <input id="bidAmount" name="bidAmount" type="number" min="0" step="0.01" value={formData.bidAmount} onChange={handleChange} required />
+        <input id="bidAmount" name="bidAmount" type="number" min={MIN_BID_AMOUNT} step="0.01" value={formData.bidAmount} onChange={handleChange} required />
       </div>
 
       <div className="campaign-form__field">
