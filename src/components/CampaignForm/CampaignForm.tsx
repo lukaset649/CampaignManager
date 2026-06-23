@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Campaign } from '../../types/campaign';
 import { mockTowns } from '../../data/mockTowns';
+import { formatCurrency } from '../../utils/format';
 import './CampaignForm.less';
 
 export type CampaignFormData = Omit<Campaign, 'id'>;
@@ -48,7 +49,7 @@ export const CampaignForm = ({
       return null;
     }
     if (Number(value) > availableBalance) {
-      return `Niewystarczające środki. Dostępne saldo: ${availableBalance.toFixed(2)} PLN`;
+      return `Niewystarczające środki. Dostępne saldo: ${formatCurrency(availableBalance)}`;
     }
     return null;
   };
