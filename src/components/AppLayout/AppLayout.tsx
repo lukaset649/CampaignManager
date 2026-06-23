@@ -6,10 +6,10 @@ import './AppLayout.less';
 export const AppLayout = () => (
   <>
     <header className="app-header">
-      <span className="app-header__title">
+      <Link to={ROUTES.HOME} className="app-header__title">
         <span className="app-header__title-full">Campaign Manager</span>
         <span className="app-header__title-short">CM</span>
-      </span>
+      </Link>
       <div className="app-header__right">
         <BalanceWidget />
         <Link to={ROUTES.CAMPAIGN_NEW} className="app-header__add-link">
