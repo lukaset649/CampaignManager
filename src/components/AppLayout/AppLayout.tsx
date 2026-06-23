@@ -10,7 +10,8 @@ export const AppLayout = () => (
       <div className="app-header__right">
         <BalanceWidget />
         <Link to={ROUTES.CAMPAIGN_NEW} className="app-header__add-link">
-          + Dodaj kampanię
+          <span className="app-header__add-link-icon">+</span>
+          <span className="app-header__add-link-text"> Dodaj kampanię</span>
         </Link>
       </div>
     </header>
