@@ -16,6 +16,21 @@
     color: @color-primary-dark;
   }
 
+  &__title-short {
+    display: none;
+
+    @media (max-width: 374px) {
+      display: inline;
+      font-size: @font-size-lg * 1.4;
+    }
+  }
+
+  &__title-full {
+    @media (max-width: 374px) {
+      display: none;
+    }
+  }
+
   &__right {
     display: flex;
     align-items: center;
