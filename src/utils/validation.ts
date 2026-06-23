@@ -1,9 +1,9 @@
 import { z } from 'zod';
-import { MIN_BID_AMOUNT } from '../config/constants';
+import { CAMPAIGN_NAME_MAX_LENGTH, MIN_BID_AMOUNT } from '../config/constants';
 
 export const campaignSchema = z
   .object({
-    name: z.string().min(3, 'Nazwa musi mieć min. 3 znaki'),
+    name: z.string().min(3, 'Nazwa musi mieć min. 3 znaki').max(CAMPAIGN_NAME_MAX_LENGTH, `Nazwa może mieć maks. ${CAMPAIGN_NAME_MAX_LENGTH} znaków`),
     keywords: z.array(z.string()).min(1, 'Dodaj min. jedno słowo kluczowe'),
     bidAmount: z.number({ message: 'Wprowadź kwotę' }).min(MIN_BID_AMOUNT, `Min. stawka to ${MIN_BID_AMOUNT} PLN`),
     fundAmount: z.number({ message: 'Wprowadź kwotę' }).positive('Budżet musi być większy od 0'),

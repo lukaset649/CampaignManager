@@ -1,6 +1,6 @@
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { MIN_BID_AMOUNT } from '../../config/constants';
+import { CAMPAIGN_NAME_MAX_LENGTH, MIN_BID_AMOUNT } from '../../config/constants';
 import type { CampaignFormData } from '../../utils/validation';
 import { campaignSchema } from '../../utils/validation';
 import { formatCurrency } from '../../utils/format';
@@ -35,6 +35,8 @@ export const CampaignForm = ({
     defaultValues: defaultValues ?? { keywords: [], status: true },
   });
 
+  const nameLength = (useWatch({ control, name: 'name' }) ?? '').length;
+
   const handleFormSubmit = (data: CampaignFormData) => {
     if (availableBalance !== undefined && data.fundAmount > availableBalance) {
       setError('fundAmount', {
@@ -50,13 +52,19 @@ export const CampaignForm = ({
     <form className="campaign-form" onSubmit={handleSubmit(handleFormSubmit)}>
       <div className="campaign-form__field campaign-form__field--full">
         <label htmlFor="name">Nazwa</label>
-        <input
-          id="name"
-          type="text"
-          placeholder="Wpisz nazwę kampanii"
-          className={errors.name ? 'campaign-form__input--error' : ''}
-          {...register('name')}
-        />
+        <div className="campaign-form__input-wrapper">
+          <input
+            id="name"
+            type="text"
+            placeholder="Wpisz nazwę kampanii"
+            maxLength={CAMPAIGN_NAME_MAX_LENGTH}
+            className={errors.name ? 'campaign-form__input--error' : ''}
+            {...register('name')}
+          />
+          <span className={`campaign-form__char-counter${nameLength >= CAMPAIGN_NAME_MAX_LENGTH ? ' campaign-form__char-counter--limit' : ''}`}>
+            {nameLength}/{CAMPAIGN_NAME_MAX_LENGTH}
+          </span>
+        </div>
         <span className="campaign-form__error">{errors.name?.message ?? ' '}</span>
       </div>
 
