@@ -53,6 +53,7 @@ export const CampaignForm = ({
         <input
           id="name"
           type="text"
+          placeholder="Wpisz nazwę kampanii"
           className={errors.name ? 'campaign-form__input--error' : ''}
           {...register('name')}
         />
@@ -66,6 +67,7 @@ export const CampaignForm = ({
           type="number"
           step="0.01"
           min={MIN_BID_AMOUNT}
+          placeholder="Wpisz stawkę"
           className={errors.bidAmount ? 'campaign-form__input--error' : ''}
           {...register('bidAmount', { valueAsNumber: true })}
         />
@@ -79,6 +81,7 @@ export const CampaignForm = ({
           type="number"
           step="0.01"
           min="0"
+          placeholder="Wpisz budżet"
           className={errors.fundAmount ? 'campaign-form__input--error' : ''}
           {...register('fundAmount', { valueAsNumber: true })}
         />
@@ -107,6 +110,7 @@ export const CampaignForm = ({
           id="radius"
           type="number"
           min="1"
+          placeholder="Wpisz zasięg"
           className={errors.radius ? 'campaign-form__input--error' : ''}
           {...register('radius', { valueAsNumber: true })}
         />

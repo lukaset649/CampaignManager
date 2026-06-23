@@ -14,7 +14,7 @@ export const TownSelect = ({ value, onChange, error }: TownSelectProps) => (
       value={value}
       onChange={(e) => onChange(e.target.value)}
     >
-      <option value="">-- wybierz miasto --</option>
+      <option value=""> wybierz miasto </option>
       {mockTowns.map((town) => (
         <option key={town} value={town}>
           {town}
