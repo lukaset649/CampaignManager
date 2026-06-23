@@ -5,6 +5,7 @@ import type { CampaignFormData } from '../../utils/validation';
 import { campaignSchema } from '../../utils/validation';
 import { formatCurrency } from '../../utils/format';
 import { KeywordTypeahead } from '../KeywordTypeahead/KeywordTypeahead';
+import { ToggleSwitch } from '../ToggleSwitch/ToggleSwitch';
 import { TownSelect } from '../TownSelect/TownSelect';
 import './CampaignForm.less';
 
@@ -126,9 +127,18 @@ export const CampaignForm = ({
         {errors.radius && <span className="campaign-form__error">{errors.radius.message}</span>}
       </div>
 
-      <div className="campaign-form__field campaign-form__field--checkbox">
-        <input id="status" type="checkbox" {...register('status')} />
-        <label htmlFor="status">Aktywna (ON)</label>
+      <div className="campaign-form__field">
+        <Controller
+          name="status"
+          control={control}
+          render={({ field }) => (
+            <ToggleSwitch
+              checked={field.value ?? true}
+              onChange={field.onChange}
+              label="Aktywna"
+            />
+          )}
+        />
       </div>
 
       <div className="campaign-form__actions">
