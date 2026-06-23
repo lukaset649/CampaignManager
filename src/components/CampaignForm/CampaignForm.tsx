@@ -67,7 +67,7 @@ export const CampaignForm = ({
           step="0.01"
           min={MIN_BID_AMOUNT}
           className={errors.bidAmount ? 'campaign-form__input--error' : ''}
-          {...register('bidAmount')}
+          {...register('bidAmount', { valueAsNumber: true })}
         />
         <span className="campaign-form__error">{errors.bidAmount?.message ?? ' '}</span>
       </div>
@@ -80,7 +80,7 @@ export const CampaignForm = ({
           step="0.01"
           min="0"
           className={errors.fundAmount ? 'campaign-form__input--error' : ''}
-          {...register('fundAmount')}
+          {...register('fundAmount', { valueAsNumber: true })}
         />
         <span className="campaign-form__error">{errors.fundAmount?.message ?? ' '}</span>
       </div>
@@ -108,7 +108,7 @@ export const CampaignForm = ({
           type="number"
           min="1"
           className={errors.radius ? 'campaign-form__input--error' : ''}
-          {...register('radius')}
+          {...register('radius', { valueAsNumber: true })}
         />
         <span className="campaign-form__error">{errors.radius?.message ?? ' '}</span>
       </div>

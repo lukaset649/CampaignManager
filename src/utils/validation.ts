@@ -5,11 +5,11 @@ export const campaignSchema = z
   .object({
     name: z.string().min(3, 'Nazwa musi mieć min. 3 znaki'),
     keywords: z.array(z.string()).min(1, 'Dodaj min. jedno słowo kluczowe'),
-    bidAmount: z.coerce.number().min(MIN_BID_AMOUNT, `Min. stawka to ${MIN_BID_AMOUNT} PLN`),
-    fundAmount: z.coerce.number().positive('Budżet musi być większy od 0'),
+    bidAmount: z.number({ invalid_type_error: 'Wprowadź kwotę' }).min(MIN_BID_AMOUNT, `Min. stawka to ${MIN_BID_AMOUNT} PLN`),
+    fundAmount: z.number({ invalid_type_error: 'Wprowadź kwotę' }).positive('Budżet musi być większy od 0'),
     status: z.boolean(),
     town: z.string().min(1, 'Wybierz miasto'),
-    radius: z.coerce.number().positive('Zasięg musi być większy od 0'),
+    radius: z.number({ invalid_type_error: 'Wprowadź liczbę' }).positive('Zasięg musi być większy od 0'),
   })
   .superRefine((data, ctx) => {
     if (data.bidAmount > data.fundAmount) {
