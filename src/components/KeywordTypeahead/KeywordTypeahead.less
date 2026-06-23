@@ -1,15 +1,31 @@
 @import '../../styles/variables.less';
-@import '../../styles/mixins.less';
 
 .keyword-typeahead {
-  display: flex;
-  flex-direction: column;
-  gap: @spacing-xs;
+  position: relative;
 
-  &__chips {
+  &__input-area {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: @spacing-xs;
+    padding: @spacing-sm 0.625rem;
+    border: 1px solid @color-gray-300;
+    border-radius: @radius-sm;
+    background: @color-white;
+    cursor: text;
+    min-height: 2.5rem;
+
+    &:focus-within {
+      border-color: @color-primary;
+    }
+
+    &--error {
+      border-color: @color-danger;
+
+      &:focus-within {
+        border-color: @color-danger;
+      }
+    }
   }
 
   &__chip {
@@ -22,6 +38,7 @@
     border-radius: @radius-pill;
     font-size: @font-size-sm;
     font-weight: 500;
+    white-space: nowrap;
   }
 
   &__chip-remove {
@@ -41,21 +58,16 @@
     }
   }
 
-  &__input-wrapper {
-    position: relative;
-  }
-
-  &__input {
-    .input-base();
-    width: 100%;
-
-    &--error {
-      border-color: @color-danger;
-
-      &:focus {
-        border-color: @color-danger;
-      }
-    }
+  &__text-input {
+    flex: 1;
+    min-width: 8rem;
+    border: none !important;
+    border-radius: 0 !important;
+    outline: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    font-size: @font-size-base;
+    line-height: 1.5;
   }
 
   &__dropdown {
@@ -95,5 +107,6 @@
   &__error {
     color: @color-danger;
     font-size: @font-size-sm;
+    margin-top: @spacing-2xs;
   }
 }

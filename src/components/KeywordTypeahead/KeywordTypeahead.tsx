@@ -55,50 +55,46 @@ export const KeywordTypeahead = ({ value, onChange, error }: KeywordTypeaheadPro
 
   return (
     <div className="keyword-typeahead">
-      {value.length > 0 && (
-        <div className="keyword-typeahead__chips">
-          {value.map((keyword) => (
-            <span key={keyword} className="keyword-typeahead__chip">
-              {keyword}
-              <button
-                type="button"
-                className="keyword-typeahead__chip-remove"
-                onClick={() => removeKeyword(keyword)}
-                aria-label={`Usuń ${keyword}`}
-              >
-                ×
-              </button>
-            </span>
-          ))}
-        </div>
-      )}
-      <div className="keyword-typeahead__input-wrapper">
+      <div className={`keyword-typeahead__input-area${error ? ' keyword-typeahead__input-area--error' : ''}`}>
+        {value.map((keyword) => (
+          <span key={keyword} className="keyword-typeahead__chip">
+            {keyword}
+            <button
+              type="button"
+              className="keyword-typeahead__chip-remove"
+              onClick={() => removeKeyword(keyword)}
+              aria-label={`Usuń ${keyword}`}
+            >
+              ×
+            </button>
+          </span>
+        ))}
         <input
           type="text"
-          className={`keyword-typeahead__input${error ? ' keyword-typeahead__input--error' : ''}`}
+          className="keyword-typeahead__text-input"
           value={inputValue}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           onFocus={() => setIsDropdownOpen(true)}
           onBlur={handleBlur}
-          placeholder="Wpisz lub wybierz słowo kluczowe..."
+          placeholder={value.length === 0 ? 'Wpisz lub wybierz słowo kluczowe...' : ''}
         />
-        {shouldShowDropdown && (
-          <ul className="keyword-typeahead__dropdown" role="listbox">
-            {filteredSuggestions.map((suggestion) => (
-              <li key={suggestion} role="option" aria-selected={false}>
-                <button
-                  type="button"
-                  className="keyword-typeahead__suggestion"
-                  onMouseDown={() => addKeyword(suggestion)}
-                >
-                  {suggestion}
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
       </div>
+      {shouldShowDropdown && (
+        <ul className="keyword-typeahead__dropdown" role="listbox">
+          {filteredSuggestions.map((suggestion) => (
+            <li key={suggestion} role="option" aria-selected={false}>
+              <button
+                type="button"
+                className="keyword-typeahead__suggestion"
+                onMouseDown={() => addKeyword(suggestion)}
+              >
+                {suggestion}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
       {error && <span className="keyword-typeahead__error">{error}</span>}
     </div>
   );
