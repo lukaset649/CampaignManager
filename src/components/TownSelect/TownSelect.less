@@ -1,0 +1,28 @@
+@import '../../styles/variables.less';
+@import '../../styles/mixins.less';
+
+.town-select {
+  display: flex;
+  flex-direction: column;
+  gap: @spacing-2xs;
+
+  &__select {
+    .input-base();
+    width: 100%;
+    background: @color-white;
+    cursor: pointer;
+
+    &--error {
+      border-color: @color-danger;
+
+      &:focus {
+        border-color: @color-danger;
+      }
+    }
+  }
+
+  &__error {
+    color: @color-danger;
+    font-size: @font-size-sm;
+  }
+}
