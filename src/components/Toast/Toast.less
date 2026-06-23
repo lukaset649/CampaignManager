@@ -4,7 +4,6 @@
   position: fixed;
   bottom: @spacing-lg;
   right: @spacing-lg;
-  background: @color-primary-dark;
   color: @color-white;
   padding: @spacing-sm @spacing-md;
   border-radius: @radius-md;
@@ -12,6 +11,14 @@
   box-shadow: @shadow-md;
   z-index: @z-toast;
   animation: toast-in 0.2s ease;
+
+  &--success {
+    background: @color-primary-dark;
+  }
+
+  &--warning {
+    background: @color-warning;
+  }
 }
 
 @keyframes toast-in {
