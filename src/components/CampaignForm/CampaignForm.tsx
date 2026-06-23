@@ -48,7 +48,7 @@ export const CampaignForm = ({
 
   return (
     <form className="campaign-form" onSubmit={handleSubmit(handleFormSubmit)}>
-      <div className="campaign-form__field">
+      <div className="campaign-form__field campaign-form__field--full">
         <label htmlFor="name">Nazwa</label>
         <input
           id="name"
@@ -57,21 +57,6 @@ export const CampaignForm = ({
           {...register('name')}
         />
         {errors.name && <span className="campaign-form__error">{errors.name.message}</span>}
-      </div>
-
-      <div className="campaign-form__field">
-        <label>Słowa kluczowe</label>
-        <Controller
-          name="keywords"
-          control={control}
-          render={({ field, fieldState }) => (
-            <KeywordTypeahead
-              value={field.value ?? []}
-              onChange={field.onChange}
-              error={fieldState.error?.message}
-            />
-          )}
-        />
       </div>
 
       <div className="campaign-form__field">
@@ -127,7 +112,22 @@ export const CampaignForm = ({
         {errors.radius && <span className="campaign-form__error">{errors.radius.message}</span>}
       </div>
 
-      <div className="campaign-form__field">
+      <div className="campaign-form__field campaign-form__field--full">
+        <label>Słowa kluczowe</label>
+        <Controller
+          name="keywords"
+          control={control}
+          render={({ field, fieldState }) => (
+            <KeywordTypeahead
+              value={field.value ?? []}
+              onChange={field.onChange}
+              error={fieldState.error?.message}
+            />
+          )}
+        />
+      </div>
+
+      <div className="campaign-form__field campaign-form__field--full">
         <Controller
           name="status"
           control={control}
