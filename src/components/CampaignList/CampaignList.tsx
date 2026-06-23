@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { Campaign } from '../../types/campaign';
+import { ROUTES } from '../../config/constants';
 import { useCampaigns } from '../../hooks/useCampaigns';
 import { CampaignCard } from '../CampaignCard/CampaignCard';
 import { ConfirmDeleteModal } from '../ConfirmDeleteModal/ConfirmDeleteModal';
@@ -30,7 +31,7 @@ export const CampaignList = () => {
     return (
       <div className="campaign-list__empty">
         <p>Brak kampanii: dodaj swoją pierwszą kampanię</p>
-        <Link to="/campaigns/new">Dodaj kampanię</Link>
+        <Link to={ROUTES.CAMPAIGN_NEW}>Dodaj kampanię</Link>
       </div>
     );
   }

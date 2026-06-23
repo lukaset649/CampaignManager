@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../config/constants';
 import { CampaignForm, type CampaignFormData } from '../components/CampaignForm/CampaignForm';
 import { useCampaigns } from '../hooks/useCampaigns';
 import { generateId } from '../utils/id';
@@ -10,7 +11,7 @@ export const CampaignCreatePage = () => {
 
   const handleSubmit = (data: CampaignFormData) => {
     dispatch({ type: 'ADD_CAMPAIGN', payload: { id: generateId(), ...data } });
-    navigate('/', { state: { toast: 'Kampania została dodana.' } });
+    navigate(ROUTES.HOME, { state: { toast: 'Kampania została dodana.' } });
   };
 
   return (
@@ -18,7 +19,7 @@ export const CampaignCreatePage = () => {
       <h1>Nowa kampania</h1>
       <CampaignForm
         onSubmit={handleSubmit}
-        onCancel={() => navigate('/')}
+        onCancel={() => navigate(ROUTES.HOME)}
         availableBalance={state.billingAccount.balance}
       />
     </section>

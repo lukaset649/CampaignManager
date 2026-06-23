@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
+import { ROUTES } from '../config/constants';
 import { CampaignForm, type CampaignFormData } from '../components/CampaignForm/CampaignForm';
 import { useCampaigns } from '../hooks/useCampaigns';
 import './CampaignEditPage.less';
@@ -22,7 +23,7 @@ export const CampaignEditPage = () => {
 
   const handleSubmit = (data: CampaignFormData) => {
     dispatch({ type: 'UPDATE_CAMPAIGN', payload: { id: campaign.id, ...data } });
-    navigate('/', { state: { toast: 'Kampania została zaktualizowana.' } });
+    navigate(ROUTES.HOME, { state: { toast: 'Kampania została zaktualizowana.' } });
   };
 
   return (
@@ -31,7 +32,7 @@ export const CampaignEditPage = () => {
       <CampaignForm
         defaultValues={campaign}
         onSubmit={handleSubmit}
-        onCancel={() => navigate('/')}
+        onCancel={() => navigate(ROUTES.HOME)}
         availableBalance={availableBalance}
       />
     </section>
